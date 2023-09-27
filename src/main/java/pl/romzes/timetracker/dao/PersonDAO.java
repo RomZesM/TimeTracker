@@ -1,6 +1,7 @@
 package pl.romzes.timetracker.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import pl.romzes.timetracker.models.Person;
@@ -20,16 +21,16 @@ public class PersonDAO {
 
 
 	public List<Person> index() {
-		return jdbcTemplate.query("select * from Person", new PersonRawMapper());
+		return jdbcTemplate.query("select * from Person", new BeanPropertyRowMapper<>(Person.class));
     }
 
     public Person show(int id) {
-		return jdbcTemplate.query("select * from Person where id=?", new Object[]{id}, new PersonRawMapper()).stream().findAny().orElse(null);
+		return jdbcTemplate.query("select * from Person where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
 		// return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
 
     public void save(Person person) {
-		String sqlStatement = "INSERT INTO Person values (1, ?, ?, ?)";
+		String sqlStatement = "INSERT INTO Person (name, age, email) values (?, ?, ?)";
 		jdbcTemplate.update(sqlStatement, person.getName(), person.getAge(), person.getEmail());
 
     }

@@ -4,6 +4,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,18 +17,21 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 import java.sql.DriverManager;
+import java.util.Objects;
 
 
 @Configuration
 @ComponentScan("pl.romzes.timetracker")
 @EnableWebMvc
+@PropertySource("classpath:database.properties")
 public class SpringConfig implements WebMvcConfigurer {
 
 	private final ApplicationContext applicationContext;
-
+	private final Environment environment;
 	@Autowired
-	public SpringConfig(ApplicationContext applicationContext) {
+	public SpringConfig(ApplicationContext applicationContext, Environment environment) {
 		this.applicationContext = applicationContext;
+		this.environment = environment;
 	}
 
 	@Bean
@@ -56,10 +61,10 @@ public class SpringConfig implements WebMvcConfigurer {
 	@Bean
 	public DataSource dataSource(){ //object to get CONNECTION to DB
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
-		driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/first_db");
-		driverManagerDataSource.setUsername("postgres");
-		driverManagerDataSource.setPassword("barabunga787");
+		driverManagerDataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("db_driver")));
+		driverManagerDataSource.setUrl(environment.getProperty("db_url"));
+		driverManagerDataSource.setUsername(environment.getProperty("db_username"));
+		driverManagerDataSource.setPassword(environment.getProperty("db_password"));
 
 		return driverManagerDataSource;
 	}
