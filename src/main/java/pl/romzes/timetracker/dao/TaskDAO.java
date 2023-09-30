@@ -20,13 +20,19 @@ public class TaskDAO {
 
 
 	public List<Task> index() {
-
 		return jdbcTemplate.query("select * from Tasks", new BeanPropertyRowMapper<>(Task.class));
 	}
+	public Object show(int id) {
+		String sql = "SELECT * from Tasks where task_id=?";
+		return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Task.class)).stream().findAny().orElse(null);
+	}
+
 
 	public void save(Task task){
-		System.out.println("save into DB");
+
 		String sql = "INSERT INTO Tasks values (?,?,?,?,?)"; //prepared statement
 		jdbcTemplate.update(sql, task.getTaskId(), task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration());
 	}
+
+
 }

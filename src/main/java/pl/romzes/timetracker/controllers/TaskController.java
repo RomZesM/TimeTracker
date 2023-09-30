@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.romzes.timetracker.dao.TaskDAO;
 import pl.romzes.timetracker.models.Task;
@@ -27,17 +28,19 @@ public class TaskController {
 	@GetMapping()
 	public String index(Model model){
 		model.addAttribute("tasksList", taskDao.index());
-
-		System.out.println(taskDao.index().get(0));
 		return "/tasks/index";
+	}
+	@GetMapping("/{id}")
+	public String show(@PathVariable("id") int id, Model model){
+		System.out.println("show");
+		model.addAttribute("task", taskDao.show(id));
+
+		return "tasks/show";
 	}
 
 	@GetMapping("/new")
 	public String createNewPerson(Model model){
-
-
 		taskDao.save(createFakeTask());
-
 		return "redirect:/tasks";
 	}
 

@@ -8,7 +8,7 @@
     <div>Hello new Task</div>
 
     <div th:each="task : ${tasksList}">
-        <a th:href="@{/task/{id}(id=${task.getTaskId()})}"
+        <a th:href="@{/tasks/{id}(id=${task.getTaskId()})}"
            th:text="${task.getName() + ', ' + task.getDuration()}">task</a>
     </div>
 
