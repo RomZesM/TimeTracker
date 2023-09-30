@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+</head>
+<body>
+<div>Show one task</div>
+<hr>
+<p th:text="${task.getName()}">VALUE</p>
+<p th:text="${'Start: ' + task.getStartedAt() + ', Finish: ' + task.getFinishedAt()}">VALUE</p>
+<p th:text="${'Duration: ' + task. getDuration()}">Value</p>
+<p th:text="${task.getTaskId()}">VALUE</p>
+
+<a th:href="@{/tasks/{id}/edit(id=${task.getTaskId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/tasks/{id}(id=${task.getTaskId()})}">
+
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

@@ -40,4 +40,9 @@ public class TaskDAO {
 		String sql = "UPDATE Tasks set name=?, started_at=?, finished_at=?, duration=? WHERE task_id=?";
 		jdbcTemplate.update(sql, task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration(), id);
 	}
+
+	public void delete(int id) {
+		String sql = "DELETE FROM Tasks where task_id=?";
+		jdbcTemplate.update(sql, id);
+	}
 }

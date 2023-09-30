@@ -30,9 +30,7 @@ public class TaskController {
 	}
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") int id, Model model){
-		System.out.println("show");
 		model.addAttribute("task", taskDao.show(id));
-
 		return "tasks/show";
 	}
 
@@ -54,6 +52,11 @@ public class TaskController {
 		return  "redirect:/tasks";
 	}
 
+	@DeleteMapping("{id}")
+	public String deleteTask(@PathVariable("id") int id) {
+		taskDao.delete(id);
+		return "redirect:/tasks";
+	}
 
 	public Task createFakeTask(){
 
