@@ -3,9 +3,7 @@ package pl.romzes.timetracker.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.romzes.timetracker.dao.TaskDAO;
 import pl.romzes.timetracker.models.Task;
 
@@ -44,6 +42,18 @@ public class TaskController {
 		return "redirect:/tasks";
 	}
 
+	@GetMapping("/{id}/edit")
+	public String edit(Model model, @PathVariable("id") int id) {
+		model.addAttribute("task", taskDao.show(id));
+		return "tasks/edit";
+	}
+
+	@PatchMapping("/{id}")
+	public String updateTask(@PathVariable("id") int id, @ModelAttribute("task") Task task){
+		taskDao.update(id, task);
+		return  "redirect:/tasks";
+	}
+
 
 	public Task createFakeTask(){
 
@@ -60,7 +70,7 @@ public class TaskController {
 
 		int id = ThreadLocalRandom.current().nextInt(1, 1000000 + 1);
 
-		Task task = new Task(id, "Task-"+id, startDate, finDate, duration);
+		Task task = new Task(id, "Task-"+id, startDate.getTime(), finDate.getTime(), duration);
 
 		return task;
 	}

@@ -6,15 +6,15 @@ public class Task {
 	private int taskId;
 	private String name;
 
-	private Date startedAt;
-	private Date finishedAt;
+	private long startedAt;
+	private long finishedAt;
 	private int duration; //in second
 
 	public Task() {
 
 	}
 
-	public Task(int taskId, String name, Date startedAt, Date finishedAt, int duration) {
+	public Task(int taskId, String name, long startedAt, long finishedAt, int duration) {
 		this.taskId = taskId;
 		this.name = name;
 		this.startedAt = startedAt;
@@ -38,19 +38,19 @@ public class Task {
 		this.name = name;
 	}
 
-	public Date getStartedAt() {
+	public long getStartedAt() {
 		return startedAt;
 	}
 
-	public void setStartedAt(Date startedAt) {
+	public void setStartedAt(long startedAt) {
 		this.startedAt = startedAt;
 	}
 
-	public Date getFinishedAt() {
+	public long getFinishedAt() {
 		return finishedAt;
 	}
 
-	public void setFinishedAt(Date finishedAt) {
+	public void setFinishedAt(long finishedAt) {
 		this.finishedAt = finishedAt;
 	}
 

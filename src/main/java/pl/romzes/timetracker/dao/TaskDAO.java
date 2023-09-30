@@ -35,4 +35,9 @@ public class TaskDAO {
 	}
 
 
+	public void update(int id, Task task) {
+
+		String sql = "UPDATE Tasks set name=?, started_at=?, finished_at=?, duration=? WHERE task_id=?";
+		jdbcTemplate.update(sql, task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration(), id);
+	}
 }
