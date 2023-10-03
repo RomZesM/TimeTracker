@@ -22,7 +22,7 @@ public class TaskDAO {
 	public List<Task> index() {
 		return jdbcTemplate.query("select * from Tasks", new BeanPropertyRowMapper<>(Task.class));
 	}
-	public Object show(int id) {
+	public Task show(int id) {
 		String sql = "SELECT * from Tasks where task_id=?";
 		return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Task.class)).stream().findAny().orElse(null);
 	}
