@@ -73,7 +73,7 @@ public class TaskController {
 
 		int id = ThreadLocalRandom.current().nextInt(1, 1000000 + 1);
 
-		Task task = new Task(id, "Task-"+id, startDate.getTime(), finDate.getTime(), duration);
+		Task task = new Task(1, "Task-"+id, startDate.getTime(), finDate.getTime(), duration);
 
 		return task;
 	}

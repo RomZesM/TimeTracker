@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Task {
 	private int taskId;
+
+	private int subtaskId;
 	private String name;
 
 	private long startedAt;
@@ -14,8 +16,8 @@ public class Task {
 
 	}
 
-	public Task(int taskId, String name, long startedAt, long finishedAt, int duration) {
-		this.taskId = taskId;
+	public Task(int subtaskId, String name, long startedAt, long finishedAt, int duration) {
+		this.subtaskId = subtaskId;
 		this.name = name;
 		this.startedAt = startedAt;
 		this.finishedAt = finishedAt;
@@ -62,10 +64,21 @@ public class Task {
 		this.duration = duration;
 	}
 
+	public int getSubtaskId() {
+		return subtaskId;
+	}
+
+	public void setSubtaskId(int subtaskId) {
+		this.subtaskId = subtaskId;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Task{" +
 				"taskId=" + taskId +
+				", subtaskId=" + subtaskId +
 				", name='" + name + '\'' +
 				", startedAt=" + startedAt +
 				", finishedAt=" + finishedAt +

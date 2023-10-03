@@ -10,7 +10,8 @@
 <p th:text="${task.getName()}">VALUE</p>
 <p th:text="${'Start: ' + task.getStartedAt() + ', Finish: ' + task.getFinishedAt()}">VALUE</p>
 <p th:text="${'Duration: ' + task. getDuration()}">Value</p>
-<p th:text="${task.getTaskId()}">VALUE</p>
+<p th:text="${'TaskId: ' +  task.getTaskId()}">VALUE</p>
+<p th:text="${'Parent Subtask Id: ' + task.getSubtaskId()}">VALUE</p>
 
 <a th:href="@{/tasks/{id}/edit(id=${task.getTaskId()})}">Edit</a>
 

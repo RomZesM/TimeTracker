@@ -30,8 +30,8 @@ public class TaskDAO {
 
 	public void save(Task task){
 
-		String sql = "INSERT INTO Tasks values (?,?,?,?,?)"; //prepared statement
-		jdbcTemplate.update(sql, task.getTaskId(), task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration());
+		String sql = "INSERT INTO Tasks (subtask_id, name, started_at, finished_at, duration) values (?,?,?,?,?)"; //prepared statement
+		jdbcTemplate.update(sql, task.getSubtaskId(), task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration());
 	}
 
 
