@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import pl.romzes.timetracker.models.Task;
+import pl.romzes.timetracker.utils.TaskDAOException;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class TaskDAO {
 	}
 	public Task show(int id) {
 		String sql = "SELECT * from Tasks where task_id=?";
-		return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Task.class)).stream().findAny().orElse(null);
+		return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Task.class)).stream().findAny().orElseThrow(TaskDAOException::new);
 	}
 
 
