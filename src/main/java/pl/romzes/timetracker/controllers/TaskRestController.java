@@ -30,7 +30,16 @@ public class TaskRestController {
 	public Task show(@PathVariable("id") int id){
 		return taskDAO.show(id);
 	}
+	@PostMapping() //wait for POST requst to /task/api
+	public ResponseEntity createTask(@RequestBody Task task){
+			taskDAO.save(task);
+		return ResponseEntity.ok(HttpStatus.OK); //standard answer from server if evrything is fine
+	}
 
+
+	////////////////
+	// Exception Handlers //todo can it be moved to another class?
+	///////////////
 	@ExceptionHandler
 	private ResponseEntity<TaskErrorResponse> exceptionHandler(TaskDAOException exception){
 		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse("Task with this id wasn't found in database"),
