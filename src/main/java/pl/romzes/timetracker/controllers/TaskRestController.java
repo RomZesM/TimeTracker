@@ -13,7 +13,7 @@ import pl.romzes.timetracker.utils.TaskErrorResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/task")
 public class TaskRestController {
 
 	private TaskDAO taskDAO;
@@ -30,7 +30,8 @@ public class TaskRestController {
 	public Task show(@PathVariable("id") int id){
 		return taskDAO.show(id);
 	}
-	@PostMapping() //wait for POST requst to /task/api
+
+	@PostMapping() //wait for POST request to /task/api
 	public ResponseEntity createTask(@RequestBody Task task){
 			taskDAO.save(task);
 		return ResponseEntity.ok(HttpStatus.OK); //standard answer from server if evrything is fine
