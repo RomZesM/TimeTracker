@@ -5,40 +5,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.romzes.timetracker.dao.GlobalTaskDAO;
-import pl.romzes.timetracker.models.GlobalTask;
+import pl.romzes.timetracker.dao.ObjectiveDAO;
+import pl.romzes.timetracker.models.Objective;
 import pl.romzes.timetracker.utils.GlobalTaskDaoException;
-import pl.romzes.timetracker.utils.TaskDAOException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
 
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/globaltask")
-public class GlobalTaskRestController {
+@RequestMapping ("/api/objective")
+public class ObjectiveRestController {
 
 
-	private GlobalTaskDAO globalTaskDAO;
+	private ObjectiveDAO objectiveDAO;
 	@Autowired
-	public GlobalTaskRestController(GlobalTaskDAO globalTaskDAO) {
-		this.globalTaskDAO = globalTaskDAO;
+	public ObjectiveRestController(ObjectiveDAO objectiveDAO) {
+		this.objectiveDAO = objectiveDAO;
 	}
 
 
 	@GetMapping("/index")
-	public List<GlobalTask> createGlobalTask(){
-		return globalTaskDAO.index();
+	public List<Objective> createGlobalTask(){
+		return objectiveDAO.index();
 	}
 
 	@GetMapping("/{id}")
-	public GlobalTask show(@PathVariable("id") int id){
-		return globalTaskDAO.show(id);
+	public Objective show(@PathVariable("id") int id){
+		return objectiveDAO.show(id);
 	}
 
 
 	@PostMapping()
-	public ResponseEntity createNewGlobalTask(@RequestBody GlobalTask globalTask){
-		globalTaskDAO.save(globalTask);
+	public ResponseEntity createNewGlobalTask(@RequestBody Objective objective){
+		objectiveDAO.save(objective);
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
 

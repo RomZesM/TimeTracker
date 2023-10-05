@@ -1,24 +1,24 @@
 package pl.romzes.timetracker.models;
 
-public class GlobalTask {
+public class Objective {
 
-	private int gtaskId;
+	private int objectiveId;
 	private String name;
 
 
-	public GlobalTask(){
+	public Objective(){
 
 	}
-	public GlobalTask(String name) {
+	public Objective(String name) {
 		this.name = name;
 	}
 
-	public int getGtaskId() {
-		return gtaskId;
+	public int getObjectiveId() {
+		return objectiveId;
 	}
 
-	public void setGtaskId(int gtaskId) {
-		this.gtaskId = gtaskId;
+	public void setObjectiveId(int objectiveId) {
+		this.objectiveId = objectiveId;
 	}
 
 	public String getName() {
@@ -32,7 +32,7 @@ public class GlobalTask {
 	@Override
 	public String toString() {
 		return "GlobalTaskModel{" +
-				"gtaskId=" + gtaskId +
+				"gtaskId=" + objectiveId +
 				", name='" + name + '\'' +
 				'}';
 	}

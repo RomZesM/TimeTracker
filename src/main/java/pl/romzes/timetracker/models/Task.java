@@ -1,11 +1,9 @@
 package pl.romzes.timetracker.models;
 
-import java.util.Date;
-
 public class Task {
 	private int taskId;
 
-	private int subtaskId;
+	private int projectId;
 	private String name;
 
 	private long startedAt;
@@ -16,8 +14,8 @@ public class Task {
 
 	}
 
-	public Task(int subtaskId, String name, long startedAt, long finishedAt, int duration) {
-		this.subtaskId = subtaskId;
+	public Task(int projectId, String name, long startedAt, long finishedAt, int duration) {
+		this.projectId = projectId;
 		this.name = name;
 		this.startedAt = startedAt;
 		this.finishedAt = finishedAt;
@@ -64,12 +62,12 @@ public class Task {
 		this.duration = duration;
 	}
 
-	public int getSubtaskId() {
-		return subtaskId;
+	public int getProjectId() {
+		return projectId;
 	}
 
-	public void setSubtaskId(int subtaskId) {
-		this.subtaskId = subtaskId;
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 
 
@@ -78,7 +76,7 @@ public class Task {
 	public String toString() {
 		return "Task{" +
 				"taskId=" + taskId +
-				", subtaskId=" + subtaskId +
+				", subtaskId=" + projectId +
 				", name='" + name + '\'' +
 				", startedAt=" + startedAt +
 				", finishedAt=" + finishedAt +
