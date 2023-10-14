@@ -55,7 +55,7 @@ public class ObjectiveRestController {
 	}
 
 
-	// handle esxception from db, we use own custom Exception, and return Response Entity, which
+	// handle exception from db, we use own custom Exception, and return Response Entity, which
 	// spring convert into JSON
 	@ExceptionHandler
 	private ResponseEntity<GlobalTaskDaoException> exception (GlobalTaskDaoException exception){

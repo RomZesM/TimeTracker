@@ -35,15 +35,27 @@ public class TaskDAO {
 		jdbcTemplate.update(sql, task.getProjectId(), task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration());
 	}
 
-
+	//method for controller, where we get ID of task from the html form (in http)
 	public void update(int id, Task task) {
 
 		String sql = "UPDATE Task set name=?, started_at=?, finished_at=?, duration=? WHERE task_id=?";
 		jdbcTemplate.update(sql, task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration(), id);
 	}
 
+	public void updateRest(Task task) {
+		String sql = "UPDATE Task set name=?, started_at=?, finished_at=?, duration=? WHERE task_id=?";
+		jdbcTemplate.update(sql, task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration(), task.getTaskId());
+	}
+
+
 	public void delete(int id) {
 		String sql = "DELETE FROM Task where task_id=?";
 		jdbcTemplate.update(sql, id);
+	}
+
+
+	public void deleteREST(Task task) {
+		String sql = "DELETE FROM Task where task_id=?";
+		jdbcTemplate.update(sql, task.getTaskId());
 	}
 }

@@ -2,10 +2,11 @@ package pl.romzes.timetracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.romzes.timetracker.dao.TaskDAO;
+
 import pl.romzes.timetracker.models.Task;
 import pl.romzes.timetracker.utils.TaskDAOException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
@@ -31,11 +32,25 @@ public class TaskRestController {
 		return taskDAO.show(id);
 	}
 
-	@PostMapping() //wait for POST request to /task/api
+	//3 save new task, which we get from rest API
+	@PostMapping("/new") //wait for POST request to /task/api
 	public ResponseEntity createTask(@RequestBody Task task){
 			taskDAO.save(task);
-		return ResponseEntity.ok(HttpStatus.OK); //standard answer from server if evrything is fine
+		return ResponseEntity.ok(HttpStatus.OK); //standard answer from server if everything is fine
 	}
+
+	@PostMapping("/edit")
+	public ResponseEntity changeObjectiveTask(@RequestBody Task task){
+		taskDAO.updateRest(task);
+		return ResponseEntity.ok(HttpStatus.OK);
+	}
+
+	@PostMapping("/del")
+	public ResponseEntity deleteObjectiveTask(@RequestBody Task task){
+		taskDAO.deleteREST(task);
+		return ResponseEntity.ok(HttpStatus.OK);
+	}
+
 
 
 	////////////////
