@@ -43,7 +43,7 @@ public class ObjectiveDAO {
 	}
 
 	public void delete(Objective objective) {
-		System.out.println("del on dao");
+
 		String sql = "DELETE from Objective WHERE objective_id=?";
 		jdbcTemplate.update(sql, objective.getObjectiveId());
 	}

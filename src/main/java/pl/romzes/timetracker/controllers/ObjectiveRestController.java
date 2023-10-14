@@ -50,7 +50,6 @@ public class ObjectiveRestController {
 
 	@PostMapping("/del")
 	public ResponseEntity deleteObjectiveTask(@RequestBody Objective objective){
-		System.out.println("del in controller");
 		objectiveDAO.delete(objective);
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
@@ -60,7 +59,7 @@ public class ObjectiveRestController {
 	// spring convert into JSON
 	@ExceptionHandler
 	private ResponseEntity<GlobalTaskDaoException> exception (GlobalTaskDaoException exception){
-		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse("GlobalTask with this id wasn't found in db"), HttpStatus.NOT_FOUND);
+		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse("Object with this id wasn't found in db"), HttpStatus.NOT_FOUND);
 		return response;
 
 
