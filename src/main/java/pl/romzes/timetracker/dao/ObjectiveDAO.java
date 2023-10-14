@@ -36,4 +36,15 @@ public class ObjectiveDAO {
 		jdbcTemplate.update(sql, objective.getName());
 
 	}
+
+	public void update(Objective objective) {
+		String sql = "UPDATE Objective set name=? WHERE objective_id=?";
+		jdbcTemplate.update(sql, objective.getName(), objective.getObjectiveId());
+	}
+
+	public void delete(Objective objective) {
+		System.out.println("del on dao");
+		String sql = "DELETE from Objective WHERE objective_id=?";
+		jdbcTemplate.update(sql, objective.getObjectiveId());
+	}
 }
