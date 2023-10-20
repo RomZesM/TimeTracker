@@ -25,7 +25,7 @@ public class PeopleController {
     public String index(Model model) {
 
         model.addAttribute("people", personDAO.index());
-        return "people/index";
+        return "people/index.html";
     }
 
     @GetMapping("/{id}")

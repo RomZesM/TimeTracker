@@ -20,6 +20,7 @@ public class PersonDAO {
 
 
 	public List<Person> index() {
+		System.out.println("here in dao");
 		return jdbcTemplate.query("select * from Person", new BeanPropertyRowMapper<>(Person.class));
     }
 
