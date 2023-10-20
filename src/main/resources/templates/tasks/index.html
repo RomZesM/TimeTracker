@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks list</title>
+    <link rel="stylesheet" href="urlToStaticResources/css/style.css">
+</head>
+<body>
+    <div>Hello new Task</div>
+
+    <div th:each="task : ${tasksList}">
+        <a th:href="@{/tasks/{id}(id=${task.getTaskId()})}"
+           th:text="${task.getName() + ', ' + task.getDuration()}">task</a>
+    </div>
+
+    <a href="/tasks/new">Create new random Task</a>
+
+</body>
+</html>

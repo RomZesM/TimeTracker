@@ -1,7 +1,8 @@
-package pl.romzes.timetracker.dao;
+package pl.romzes.TimeTracker.dao;
+
 
 import org.springframework.jdbc.core.RowMapper;
-import pl.romzes.timetracker.models.Person;
+import pl.romzes.TimeTracker.models.Person;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

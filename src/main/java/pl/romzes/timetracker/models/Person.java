@@ -1,4 +1,4 @@
-package pl.romzes.timetracker.models;
+package pl.romzes.TimeTracker.models;
 
 
 import jakarta.validation.constraints.Min;
