@@ -1,6 +1,6 @@
 package pl.romzes.TimeTracker.models;
 
-public class Task implements Runnable{
+public class TaskRunnable implements Runnable{
 	private int taskId;
 
 	private int projectId;
@@ -10,16 +10,32 @@ public class Task implements Runnable{
 	private long finishedAt;
 	private int duration; //in second
 
-	public Task() {
+	private int counterTest = 0;
+	public TaskRunnable() {
 
 	}
 
-	public Task(int projectId, String name, long startedAt, long finishedAt, int duration) {
+	public TaskRunnable(int projectId, String name, long startedAt, long finishedAt, int duration) {
 		this.projectId = projectId;
 		this.name = name;
 		this.startedAt = startedAt;
 		this.finishedAt = finishedAt;
 		this.duration = duration;
+	}
+
+	@Override
+	public void run() {
+		Thread current = Thread.currentThread();
+		while(!current.isInterrupted()){
+			try {
+				Thread.sleep(1000);
+				counterTest++;
+
+			} catch (InterruptedException e) {
+				//e.printStackTrace();
+				current.interrupt(); //interrupt current thread
+			}
+		}
 	}
 
 	public int getTaskId() {
@@ -69,8 +85,13 @@ public class Task implements Runnable{
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
 	}
+	public int getCounterTest() { //!del
+		return counterTest;
+	}
 
-
+	public void setCounterTest(int counterTest) {//!del
+		this.counterTest = counterTest;
+	}
 
 	@Override
 	public String toString() {
@@ -82,18 +103,6 @@ public class Task implements Runnable{
 				", finishedAt=" + finishedAt +
 				", duration=" + duration +
 				'}';
-	}
-
-	@Override
-	public void run() {
-		while(!Thread.currentThread().isInterrupted()){
-			duration++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
-		}
 	}
 }
 

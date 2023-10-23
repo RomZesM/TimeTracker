@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.romzes.TimeTracker.dao.TaskDAO;
 import pl.romzes.TimeTracker.models.Task;
+import pl.romzes.TimeTracker.models.TaskRunnable;
 import pl.romzes.timetracker.utils.TaskDAOException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
 
@@ -19,6 +20,9 @@ import java.util.List;
 public class TaskRestController {
 
 	private TaskDAO taskDAO;
+	private Task cureentRunningTask;
+
+	private Thread threadWithCurrentTask;
 	@Autowired
 	public TaskRestController(TaskDAO taskDAO) {
 		this.taskDAO = taskDAO;
@@ -51,6 +55,31 @@ public class TaskRestController {
 		taskDAO.deleteREST(task);
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
+
+	//start, stop, thread with task, show current tusk
+	@PostMapping("/start")
+	public ResponseEntity startTimer(@RequestBody Task task) {
+		System.out.println("start task");
+		cureentRunningTask = task;
+		threadWithCurrentTask = new Thread(cureentRunningTask);
+		threadWithCurrentTask.start();
+		return ResponseEntity.ok(HttpStatus.OK);
+	}
+
+	@GetMapping("/stop")
+	public ResponseEntity stopTimer() {
+		System.out.println("stop task");
+		threadWithCurrentTask.interrupt();
+		System.out.println("Task duration: " + cureentRunningTask.getDuration());
+		return ResponseEntity.ok(HttpStatus.OK);
+	}
+
+	@GetMapping("/show")
+	public Task showCurrentTask() {
+		System.out.println("show task");
+		return cureentRunningTask;
+	}
+
 
 
 

@@ -25,6 +25,7 @@ public class PersonDAO {
     }
 
     public Person show(int id) {
+		//todo change query because of deprecated method
 		return jdbcTemplate.query("select * from Person where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
 		// return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
