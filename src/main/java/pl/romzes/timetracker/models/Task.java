@@ -1,4 +1,4 @@
-package pl.romzes.TimeTracker.models;
+package pl.romzes.timetracker.models;
 
 public class Task implements Runnable{
 	private int taskId;
@@ -85,6 +85,8 @@ public class Task implements Runnable{
 	}
 
 	@Override
+			//run current task as thread and count it duration every second,
+			//waiting for interruption
 	public void run() {
 		while(!Thread.currentThread().isInterrupted()){
 			duration++;

@@ -1,4 +1,4 @@
-package pl.romzes.TimeTracker.testSmthg;
+package pl.romzes.timetracker.testSmthg;
 
 import java.util.Calendar;
 import java.util.Date;

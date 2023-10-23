@@ -1,4 +1,4 @@
-package pl.romzes.TimeTracker.controllers;
+package pl.romzes.timetracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,11 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import pl.romzes.TimeTracker.dao.TaskDAO;
-import pl.romzes.TimeTracker.models.Task;
-import pl.romzes.TimeTracker.models.TaskRunnable;
+import pl.romzes.timetracker.dao.TaskDAO;
+import pl.romzes.timetracker.models.Task;
+import pl.romzes.timetracker.utils.TaskControllerException;
 import pl.romzes.timetracker.utils.TaskDAOException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
+
 
 import java.util.List;
 
@@ -60,10 +61,15 @@ public class TaskRestController {
 	@PostMapping("/start")
 	public ResponseEntity startTimer(@RequestBody Task task) {
 		System.out.println("start task");
-		cureentRunningTask = task;
-		threadWithCurrentTask = new Thread(cureentRunningTask);
-		threadWithCurrentTask.start();
-		return ResponseEntity.ok(HttpStatus.OK);
+		if(cureentRunningTask == null){
+
+			cureentRunningTask = task;
+			threadWithCurrentTask = new Thread(cureentRunningTask);
+			threadWithCurrentTask.start();
+			return ResponseEntity.ok(HttpStatus.OK);
+		}
+		else
+			throw new TaskControllerException();
 	}
 
 	@GetMapping("/stop")
@@ -71,6 +77,7 @@ public class TaskRestController {
 		System.out.println("stop task");
 		threadWithCurrentTask.interrupt();
 		System.out.println("Task duration: " + cureentRunningTask.getDuration());
+		cureentRunningTask = null; //clear current task
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
 
@@ -89,6 +96,13 @@ public class TaskRestController {
 	@ExceptionHandler
 	private ResponseEntity<TaskErrorResponse> exceptionHandler(TaskDAOException exception){
 		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse("Task with this id wasn't found in database"),
+				HttpStatus.NOT_FOUND);
+		return response;
+	}
+
+	@ExceptionHandler
+	private ResponseEntity<TaskErrorResponse> exceptionHandler(TaskControllerException exception){
+		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse("The other task is still running"),
 				HttpStatus.NOT_FOUND);
 		return response;
 	}

@@ -1,11 +1,11 @@
-package pl.romzes.TimeTracker.controllers;
+package pl.romzes.timetracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.romzes.TimeTracker.dao.ProjectDAO;
-import pl.romzes.TimeTracker.models.Project;
+import pl.romzes.timetracker.dao.ProjectDAO;
+import pl.romzes.timetracker.models.Project;
 import pl.romzes.timetracker.utils.GlobalTaskDaoException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
 

@@ -1,4 +1,4 @@
-package pl.romzes.TimeTracker;
+package pl.romzes.timetracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

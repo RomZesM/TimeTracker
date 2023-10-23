@@ -1,11 +1,11 @@
-package pl.romzes.TimeTracker.controllers;
+package pl.romzes.timetracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.romzes.TimeTracker.dao.TaskDAO;
-import pl.romzes.TimeTracker.models.Task;
+import pl.romzes.timetracker.dao.TaskDAO;
+import pl.romzes.timetracker.models.Task;
 
 import java.util.Calendar;
 import java.util.Date;

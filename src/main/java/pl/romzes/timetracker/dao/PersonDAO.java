@@ -1,10 +1,10 @@
-package pl.romzes.TimeTracker.dao;
+package pl.romzes.timetracker.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import pl.romzes.TimeTracker.models.Person;
+import pl.romzes.timetracker.models.Person;
 
 import java.util.List;
 

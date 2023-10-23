@@ -1,4 +1,4 @@
-package pl.romzes.TimeTracker.models;
+package pl.romzes.timetracker.models;
 
 public class Project {
 	private int projectId;
