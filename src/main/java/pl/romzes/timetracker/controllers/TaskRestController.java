@@ -14,9 +14,7 @@ import pl.romzes.timetracker.utils.TaskDAOException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
 
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @RestController
@@ -25,7 +23,6 @@ public class TaskRestController {
 
 	private TaskDAO taskDAO;
 	private Task cureentRunningTask;
-
 	private Thread threadWithCurrentTask;
 
 
@@ -75,18 +72,21 @@ public class TaskRestController {
 			return ResponseEntity.ok(HttpStatus.OK);
 		}
 		else
-			throw new TaskControllerException();
+			throw new TaskControllerException("The other task is still running");
 	}
 
 	@GetMapping("/stop")
 	public ResponseEntity stopTimer() {
-		//System.out.println("stop task");
-		threadWithCurrentTask.interrupt();//stop current task
-		//System.out.println("Task duration: " + cureentRunningTask.getDuration());
-		cureentRunningTask.setFinishedAt(new Date().getTime());
-		taskDAO.save(cureentRunningTask);//save finished task into db
-		cureentRunningTask = null; //clear current task
-		return ResponseEntity.ok(HttpStatus.OK);
+		if(threadWithCurrentTask.isAlive()){
+			//System.out.println("stop task");
+			threadWithCurrentTask.interrupt();//stop current task
+			cureentRunningTask.setFinishedAt(new Date().getTime());
+			taskDAO.save(cureentRunningTask);//save finished task into db
+			cureentRunningTask = null; //clear current task
+			return ResponseEntity.ok(HttpStatus.OK);
+		}
+		else throw new TaskControllerException("There is no running task");
+
 	}
 
 	@GetMapping("/show")
@@ -94,8 +94,6 @@ public class TaskRestController {
 		System.out.println("show task");
 		return cureentRunningTask;
 	}
-
-
 
 
 	////////////////
@@ -110,7 +108,7 @@ public class TaskRestController {
 
 	@ExceptionHandler
 	private ResponseEntity<TaskErrorResponse> exceptionHandler(TaskControllerException exception){
-		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse("The other task is still running"),
+		ResponseEntity response = new ResponseEntity<>(new TaskErrorResponse(exception.getMessage()),
 				HttpStatus.NOT_FOUND);
 		return response;
 	}
