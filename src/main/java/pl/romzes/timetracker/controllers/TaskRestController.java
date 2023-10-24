@@ -14,6 +14,9 @@ import pl.romzes.timetracker.utils.TaskDAOException;
 import pl.romzes.timetracker.utils.TaskErrorResponse;
 
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,8 @@ public class TaskRestController {
 	private Task cureentRunningTask;
 
 	private Thread threadWithCurrentTask;
+
+
 	@Autowired
 	public TaskRestController(TaskDAO taskDAO) {
 		this.taskDAO = taskDAO;
@@ -64,6 +69,7 @@ public class TaskRestController {
 		if(cureentRunningTask == null){
 
 			cureentRunningTask = task;
+			task.setStartedAt(new Date().getTime());//insert start time
 			threadWithCurrentTask = new Thread(cureentRunningTask);
 			threadWithCurrentTask.start();
 			return ResponseEntity.ok(HttpStatus.OK);
@@ -74,9 +80,11 @@ public class TaskRestController {
 
 	@GetMapping("/stop")
 	public ResponseEntity stopTimer() {
-		System.out.println("stop task");
-		threadWithCurrentTask.interrupt();
-		System.out.println("Task duration: " + cureentRunningTask.getDuration());
+		//System.out.println("stop task");
+		threadWithCurrentTask.interrupt();//stop current task
+		//System.out.println("Task duration: " + cureentRunningTask.getDuration());
+		cureentRunningTask.setFinishedAt(new Date().getTime());
+		taskDAO.save(cureentRunningTask);//save finished task into db
 		cureentRunningTask = null; //clear current task
 		return ResponseEntity.ok(HttpStatus.OK);
 	}

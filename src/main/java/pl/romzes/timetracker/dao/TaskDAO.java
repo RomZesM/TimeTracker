@@ -31,7 +31,6 @@ public class TaskDAO {
 
 
 	public void save(Task task){
-
 		String sql = "INSERT INTO Task (project_id, name, started_at, finished_at, duration) values (?,?,?,?,?)"; //prepared statement
 		jdbcTemplate.update(sql, task.getProjectId(), task.getName(), task.getStartedAt(), task.getFinishedAt(), task.getDuration());
 	}
